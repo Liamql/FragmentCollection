@@ -6,12 +6,17 @@ import android.support.v7.widget.RecyclerView;
 import android.text.TextUtils;
 import android.widget.TextView;
 
+import com.example.administrator.izhihucollection.MVP.contract.HomeContract;
 import com.example.administrator.izhihucollection.MVP.model.entity.ArticleListBean;
 import com.example.administrator.izhihucollection.MVP.presenter.HomePresenter;
+import com.example.administrator.izhihucollection.MVP.ui.IView;
 import com.example.administrator.izhihucollection.MVP.ui.adapter.HomeListAdapter;
 import com.example.administrator.izhihucollection.R;
 import com.example.administrator.izhihucollection.app.base.BaseFragment;
+import com.example.administrator.izhihucollection.app.base.LFragment;
 import com.example.administrator.izhihucollection.di.component.AppComponent;
+import com.example.administrator.izhihucollection.di.component.DaggerHomeComponent;
+import com.example.administrator.izhihucollection.di.module.HomeModule;
 
 import java.util.ArrayList;
 
@@ -20,14 +25,13 @@ import butterknife.BindView;
 /**
  * Created by Administrator on 2017/8/3 0003.
  */
-public class HomeFragment extends BaseFragment {
+public class HomeFragment extends LFragment<HomePresenter> implements HomeContract.View {
 
     @BindView(R.id.swiperefresh)
     SwipeRefreshLayout swiperefresh;
     @BindView(R.id.l_recyclerview)
     RecyclerView recycleview;
 
-    private HomePresenter homePresenter;
     private HomeListAdapter homeListAdapter;
     private ArrayList<ArticleListBean> listData = new ArrayList<>();
     private int page = 1;
@@ -39,11 +43,16 @@ public class HomeFragment extends BaseFragment {
 
     @Override
     public void setupFragmentComponent(AppComponent appComponent) {
-
+        DaggerHomeComponent.builder()
+                .appComponent(appComponent)
+                .homeModule(new HomeModule(this))
+                .build()
+                .inject(this);
     }
 
     @Override
     protected void initData() {
+
         homeListAdapter = new HomeListAdapter(mContext, listData);
         recycleview.setAdapter(homeListAdapter);
 
@@ -62,9 +71,14 @@ public class HomeFragment extends BaseFragment {
         layoutManager.setOrientation(LinearLayoutManager.VERTICAL);
         recycleview.setLayoutManager(layoutManager);
 
-        listData.add(new ArticleListBean("Title1","666",100));
+        mPresenter.showData();
+
+    }
+
+    @Override
+    public void showData(ArticleListBean articleListBean) {
+        listData.add(articleListBean);
 
         homeListAdapter.notifyDataSetChanged();
-
     }
 }

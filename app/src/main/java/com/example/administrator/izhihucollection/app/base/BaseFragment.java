@@ -23,6 +23,8 @@ public abstract class BaseFragment<P extends IPresenter> extends Fragment implem
 {
     @Inject
     protected P mPresenter;
+
+    BaseApplication bApplication;
     /**
      * Log tag
      */
@@ -78,6 +80,8 @@ public abstract class BaseFragment<P extends IPresenter> extends Fragment implem
         super.onViewCreated(view, savedInstanceState);
         ButterKnife.bind(this, view);
 
+        ComponentInject();
+
         DisplayMetrics displayMetrics = new DisplayMetrics();
         getActivity().getWindowManager().getDefaultDisplay().getMetrics(displayMetrics);
 
@@ -98,5 +102,7 @@ public abstract class BaseFragment<P extends IPresenter> extends Fragment implem
     protected abstract int getContentViewLayoutID();
 
     protected abstract void initData();
+
+    protected abstract void ComponentInject();
 
 }
