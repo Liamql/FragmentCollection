@@ -1,0 +1,62 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:background="@color/theme_text_white"
+    android:orientation="vertical">
+
+    <include layout="@layout/app_toolbar"></include>
+
+    <LinearLayout
+        android:id="@+id/content_layout"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:paddingBottom="15dp"
+        android:paddingTop="5dp"
+        android:paddingLeft="15dp">
+
+        <TextView
+            android:id="@+id/tv_likecount"
+            android:layout_width="40dp"
+            android:layout_height="30dp"
+            android:background="@drawable/num_text_bg"
+            android:gravity="center"
+            android:text="150"
+            android:textColor="@color/num_text_color"
+            android:textSize="16sp" />
+
+        <TextView
+            android:id="@+id/tag_author"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:paddingTop="10dp"
+            android:paddingBottom="2dp"
+            android:layout_marginLeft="5dp"
+            android:text="苏灿"
+            android:textColor="@color/title_text_color"
+            android:textSize="@dimen/text_size_16" />
+
+        <TextView
+            android:id="@+id/tag_intro"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:paddingTop="10dp"
+            android:paddingBottom="2dp"
+            android:layout_marginLeft="5dp"
+            android:text="专业蹭吃"
+            android:textColor="@color/tag_text_color"
+            android:textSize="@dimen/text_size_16" />
+    </LinearLayout>
+
+    <com.example.administrator.izhihucollection.MVP.ui.widget.RichText
+        android:id="@+id/tv_content"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="15dip"
+        android:text="7897494"
+        android:textColor="@color/content_text_color"
+        android:lineSpacingExtra="5dp"
+        android:textSize="20sp"
+        android:scrollbars="vertical" />
+
+</LinearLayout>

@@ -10,6 +10,7 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.example.administrator.izhihucollection.MVP.model.entity.ArticleListBean;
+import com.example.administrator.izhihucollection.MVP.ui.activity.ArticleActivity;
 import com.example.administrator.izhihucollection.R;
 
 import java.util.ArrayList;
@@ -22,6 +23,9 @@ public class HomeListAdapter extends RecyclerView.Adapter<HomeListAdapter.ViewHo
 
     Context context;
     public ArrayList<ArticleListBean> data = null;
+
+    public static String TAG = "content";
+
 
     public HomeListAdapter(Context context, ArrayList<ArticleListBean> data) {
         this.context = context;
@@ -57,30 +61,30 @@ public class HomeListAdapter extends RecyclerView.Adapter<HomeListAdapter.ViewHo
     }
 
     @Override
-    public void onBindViewHolder(ViewHolder holder, int position) {
+    public void onBindViewHolder(ViewHolder holder, final int position) {
         holder.tag_text.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                /*Intent intent = new Intent(context, ArticleDetailActivity.class);
-                intent.putExtra(ArticleDetailFragment.ARG_ITEM_INFO, data.get(position));
-                context.startActivity(intent);*/
+                Intent intent = new Intent(context, ArticleActivity.class);
+                intent.putExtra(TAG, data.get(position));
+                context.startActivity(intent);
             }
         });
 
         holder.title_text.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                /*Intent intent = new Intent(context, ArticleDetailActivity.class);
-                intent.putExtra(ArticleDetailFragment.ARG_ITEM_INFO, data.get(position));
-                context.startActivity(intent);*/
+                Intent intent = new Intent(context, ArticleActivity.class);
+                intent.putExtra(TAG, data.get(position));
+                context.startActivity(intent);
             }
         });
         holder.content_layout.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                /*Intent intent = new Intent(context, ArticleDetailActivity.class);
-                intent.putExtra(ArticleDetailFragment.ARG_ITEM_INFO, data.get(position));
-                context.startActivity(intent);*/
+                Intent intent = new Intent(context, ArticleActivity.class);
+                intent.putExtra(TAG, data.get(position));
+                context.startActivity(intent);
             }
         });
 

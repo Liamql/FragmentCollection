@@ -111,12 +111,13 @@ public class ArticleListBean implements Parcelable {
     public ArticleListBean() {
     }
 
-    public ArticleListBean(String title,String summary,String author,String author_des,String likesCount) {
+    public ArticleListBean(String title,String summary,String author,String author_des,String likesCount,String content) {
         this.title = title;
         this.author_des = author_des;
         this.author = author;
         this.summary = summary;
         this.likesCount = likesCount;
+        this.content = content;
     }
 
     protected ArticleListBean(Parcel in) {
