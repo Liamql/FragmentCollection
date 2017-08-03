@@ -79,6 +79,6 @@ public class ClientModule
                 return httpUrl;
             }
         }
-        return mApiUrl == null ? HttpUrl.parse("https://api.seniverse.com") : mApiUrl;
+        return mApiUrl == null ? HttpUrl.parse("http://www.zhihu.com") : mApiUrl;
     }
 }

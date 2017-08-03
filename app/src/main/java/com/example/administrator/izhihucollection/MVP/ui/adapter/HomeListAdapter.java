@@ -34,6 +34,7 @@ public class HomeListAdapter extends RecyclerView.Adapter<HomeListAdapter.ViewHo
         public TextView tv_likecount;
         public TextView tag_text;
         public TextView title_text;
+        public TextView author_text;
         public LinearLayout content_layout;
 
         public ViewHolder(View view) {
@@ -41,6 +42,7 @@ public class HomeListAdapter extends RecyclerView.Adapter<HomeListAdapter.ViewHo
             tv_summary = (TextView) view.findViewById(R.id.tv_summary);
             tv_likecount = (TextView) view.findViewById(R.id.tv_likecount);
             tag_text = (TextView) view.findViewById(R.id.tag_text);
+            author_text = (TextView) view.findViewById(R.id.tag_author);
             title_text = (TextView) view.findViewById(R.id.title_text);
             content_layout = (LinearLayout) view.findViewById(R.id.content_layout);
 
@@ -84,8 +86,10 @@ public class HomeListAdapter extends RecyclerView.Adapter<HomeListAdapter.ViewHo
 
         ArticleListBean articleListBean = data.get(position);
         holder.title_text.setText(articleListBean.getTitle());
+        holder.author_text.setText(articleListBean.getAuthor());
+        holder.tag_text.setText(articleListBean.getAuthor_des());
         holder.tv_summary.setText(articleListBean.getSummary());
-        holder.tv_likecount.setText(articleListBean.getLikesCount() > 1000 ? (float) (articleListBean.getLikesCount() / 1000) * 10 / 10 + "k" : articleListBean.getLikesCount() + "");
+        holder.tv_likecount.setText(articleListBean.getLikesCount());
 
     }
 

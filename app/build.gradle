@@ -45,4 +45,7 @@ dependencies {
     //retrofit2.0
     compile 'com.squareup.retrofit2:retrofit:2.3.0'
     compile 'com.squareup.retrofit2:converter-gson:2.3.0'
+
+    //Jsoup
+    compile 'org.jsoup:jsoup:1.9.2'
 }

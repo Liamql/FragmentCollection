@@ -8,13 +8,11 @@ import android.os.Parcelable;
  */
 public class ArticleListBean implements Parcelable {
 
-    private String publishedTime;
+    private String author;
 
-    private Author author;
+    private String author_des;
 
     private String title;
-
-    private String titleImage;
 
     private String summary;
 
@@ -24,32 +22,32 @@ public class ArticleListBean implements Parcelable {
 
     private String href;
 
-    private int commentsCount;
-
-    private int likesCount;
+    private String likesCount;
 
 
-    public int getLikesCount() {
+    public String getLikesCount() {
         return likesCount;
     }
 
-    public void setLikesCount(int likesCount) {
+    public void setLikesCount(String likesCount) {
         this.likesCount = likesCount;
     }
 
-    public String getPublishedTime() {
-        return publishedTime;
+    public String getAuthor_des()
+    {
+        return this.author_des;
     }
 
-    public void setPublishedTime(String publishedTime) {
-        this.publishedTime = publishedTime;
+    public void setAuthor_des(String author_des)
+    {
+        this.author_des = author_des;
     }
 
-    public Author getAuthor() {
+    public String getAuthor() {
         return author;
     }
 
-    public void setAuthor(Author author) {
+    public void setAuthor(String author) {
         this.author = author;
     }
 
@@ -59,14 +57,6 @@ public class ArticleListBean implements Parcelable {
 
     public void setTitle(String title) {
         this.title = title;
-    }
-
-    public String getTitleImage() {
-        return titleImage;
-    }
-
-    public void setTitleImage(String titleImage) {
-        this.titleImage = titleImage;
     }
 
     public String getSummary() {
@@ -101,14 +91,6 @@ public class ArticleListBean implements Parcelable {
         this.href = href;
     }
 
-    public int getCommentsCount() {
-        return commentsCount;
-    }
-
-    public void setCommentsCount(int commentsCount) {
-        this.commentsCount = commentsCount;
-    }
-
     @Override
     public int describeContents() {
         return 0;
@@ -116,38 +98,36 @@ public class ArticleListBean implements Parcelable {
 
     @Override
     public void writeToParcel(Parcel dest, int flags) {
-        dest.writeString(this.publishedTime);
-        dest.writeParcelable(this.author, 0);
+        dest.writeString(this.author);
+        dest.writeString(this.author_des);
         dest.writeString(this.title);
-        dest.writeString(this.titleImage);
         dest.writeString(this.summary);
         dest.writeString(this.content);
         dest.writeString(this.url);
         dest.writeString(this.href);
-        dest.writeInt(this.commentsCount);
-        dest.writeInt(this.likesCount);
+        dest.writeString(this.likesCount);
     }
 
     public ArticleListBean() {
     }
 
-    public ArticleListBean(String title,String summary,int likesCount) {
+    public ArticleListBean(String title,String summary,String author,String author_des,String likesCount) {
         this.title = title;
+        this.author_des = author_des;
+        this.author = author;
         this.summary = summary;
         this.likesCount = likesCount;
     }
 
     protected ArticleListBean(Parcel in) {
-        this.publishedTime = in.readString();
-        this.author = in.readParcelable(Author.class.getClassLoader());
+        this.author = in.readString();
+        this.author_des = in.readString();
         this.title = in.readString();
-        this.titleImage = in.readString();
         this.summary = in.readString();
         this.content = in.readString();
         this.url = in.readString();
         this.href = in.readString();
-        this.commentsCount = in.readInt();
-        this.likesCount = in.readInt();
+        this.likesCount = in.readString();
     }
 
     public static final Creator<ArticleListBean> CREATOR = new Creator<ArticleListBean>() {
@@ -159,4 +139,9 @@ public class ArticleListBean implements Parcelable {
             return new ArticleListBean[size];
         }
     };
+
+    public String show()
+    {
+        return author+":"+summary;
+    }
 }

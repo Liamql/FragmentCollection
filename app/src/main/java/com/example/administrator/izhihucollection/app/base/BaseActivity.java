@@ -21,6 +21,8 @@ public abstract class BaseActivity<P extends IPresenter> extends AppCompatActivi
 
     protected BaseApplication mApplication;
 
+    Toolbar toolbar;
+
     @Inject
     protected P mPresenter;
 
@@ -33,13 +35,18 @@ public abstract class BaseActivity<P extends IPresenter> extends AppCompatActivi
         ButterKnife.bind(this);//绑定到butterknife
         if(findViewById(R.id.toolbar)!=null)
         {
-            Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
+            toolbar = (Toolbar) findViewById(R.id.toolbar);
             setSupportActionBar(toolbar);
             getSupportActionBar().setDisplayShowTitleEnabled(false);
             toolbar.setTitle(getTitle().toString());
         }
         ComponentInject();//依赖注入
         initData();
+    }
+
+    public Toolbar getToolbar()
+    {
+        return toolbar;
     }
 
     /**

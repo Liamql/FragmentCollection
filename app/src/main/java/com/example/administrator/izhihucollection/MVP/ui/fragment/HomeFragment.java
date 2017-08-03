@@ -4,12 +4,14 @@ import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.text.TextUtils;
+import android.util.Log;
 import android.widget.TextView;
 
 import com.example.administrator.izhihucollection.MVP.contract.HomeContract;
 import com.example.administrator.izhihucollection.MVP.model.entity.ArticleListBean;
 import com.example.administrator.izhihucollection.MVP.presenter.HomePresenter;
 import com.example.administrator.izhihucollection.MVP.ui.IView;
+import com.example.administrator.izhihucollection.MVP.ui.activity.MainActivity;
 import com.example.administrator.izhihucollection.MVP.ui.adapter.HomeListAdapter;
 import com.example.administrator.izhihucollection.R;
 import com.example.administrator.izhihucollection.app.base.BaseFragment;
@@ -19,6 +21,7 @@ import com.example.administrator.izhihucollection.di.component.DaggerHomeCompone
 import com.example.administrator.izhihucollection.di.module.HomeModule;
 
 import java.util.ArrayList;
+import java.util.List;
 
 import butterknife.BindView;
 
@@ -76,9 +79,19 @@ public class HomeFragment extends LFragment<HomePresenter> implements HomeContra
     }
 
     @Override
-    public void showData(ArticleListBean articleListBean) {
-        listData.add(articleListBean);
+    public void showData(ArrayList<ArticleListBean> articleListBean) {
+        //listData = articleListBean;
+
+        for(ArticleListBean a : articleListBean)
+        {
+            listData.add(a);
+        }
 
         homeListAdapter.notifyDataSetChanged();
+    }
+
+    @Override
+    public void getTitle(String title) {
+        lActivity.getToolbar().setTitle(title);
     }
 }
