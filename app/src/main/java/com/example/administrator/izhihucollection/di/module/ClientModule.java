@@ -1,8 +1,12 @@
 package com.example.administrator.izhihucollection.di.module;
 
 
+import android.app.Application;
+import android.database.sqlite.SQLiteDatabase;
+
 import com.example.administrator.izhihucollection.app.base.AppManager;
 import com.example.administrator.izhihucollection.app.base.BaseUrl;
+import com.example.administrator.izhihucollection.app.base.DBOpenHelper;
 
 import java.util.concurrent.TimeUnit;
 
@@ -81,4 +85,12 @@ public class ClientModule
         }
         return mApiUrl == null ? HttpUrl.parse("http://www.zhihu.com") : mApiUrl;
     }
+
+    @Singleton
+    @Provides
+    DBOpenHelper provideDB(Application application)
+    {
+        return new DBOpenHelper(application);
+    }
+
 }

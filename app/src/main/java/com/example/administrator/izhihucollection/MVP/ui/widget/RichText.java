@@ -6,12 +6,13 @@ import android.text.Html;
 import android.text.Spanned;
 import android.text.method.LinkMovementMethod;
 import android.util.AttributeSet;
+import android.view.View;
 import android.widget.TextView;
 
 /**
  * Created by Administrator on 2017/8/4 0004.
  */
-public class RichText extends TextView {
+public class RichText extends TextView implements View.OnAttachStateChangeListener {
 
 
     private GlideImageGetter glideImageGetter;
@@ -36,9 +37,28 @@ public class RichText extends TextView {
     }
 
     @Override
+    public void onViewDetachedFromWindow(View v) {
+
+        glideImageGetter.recycle();
+    }
+
+    @Override
     public void invalidateDrawable(Drawable who) {
 
-        invalidate();
+        invalidateOutline();
+
+    }
+
+    @Override
+    public void scheduleDrawable(Drawable who, Runnable what, long when) {
+    }
+
+    @Override
+    public void unscheduleDrawable(Drawable who, Runnable what) {
+    }
+
+    @Override
+    public void onViewAttachedToWindow(View v) {
 
     }
 

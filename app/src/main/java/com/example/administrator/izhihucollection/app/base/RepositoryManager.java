@@ -1,5 +1,7 @@
 package com.example.administrator.izhihucollection.app.base;
 
+import android.database.sqlite.SQLiteDatabase;
+
 import javax.inject.Inject;
 import javax.inject.Singleton;
 
@@ -12,10 +14,12 @@ import retrofit2.Retrofit;
 @Singleton
 public class RepositoryManager implements IRepositoryManager {
     private Lazy<Retrofit> mRetrofit;
+    private DBOpenHelper helper;
 
     @Inject
-    public RepositoryManager(Lazy<Retrofit> retrofit) {
+    public RepositoryManager(Lazy<Retrofit> retrofit,DBOpenHelper helper) {
         this.mRetrofit = retrofit;
+        this.helper = helper;
     }
 
     /**
@@ -33,5 +37,13 @@ public class RepositoryManager implements IRepositoryManager {
         return retrofitService;
     }
 
+    @Override
+    public SQLiteDatabase obtainDBReadService() {
+        return helper.getReadableDatabase();
+    }
 
+    @Override
+    public SQLiteDatabase obtainDBWriteService() {
+        return helper.getWritableDatabase();
+    }
 }

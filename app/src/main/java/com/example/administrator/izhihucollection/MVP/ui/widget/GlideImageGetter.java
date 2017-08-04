@@ -10,6 +10,7 @@ import android.widget.TextView;
 
 import com.bumptech.glide.GenericRequestBuilder;
 import com.bumptech.glide.Glide;
+import com.bumptech.glide.load.engine.DiskCacheStrategy;
 import com.bumptech.glide.load.resource.drawable.GlideDrawable;
 import com.bumptech.glide.load.resource.gif.GifDrawable;
 import com.bumptech.glide.request.animation.GlideAnimation;
@@ -49,7 +50,7 @@ public class GlideImageGetter implements Html.ImageGetter {
             target = new BitmapTarget(urlDrawable);
         }
         targets.add(target);
-        load.into(target);
+        load.diskCacheStrategy(DiskCacheStrategy.RESULT).into(target);
         return urlDrawable;
     }
 
@@ -78,6 +79,15 @@ public class GlideImageGetter implements Html.ImageGetter {
             mTextView.setText(mTextView.getText());
             mTextView.invalidate();
         }
+    }
+
+    public void recycle() {
+        targets.clear();
+        for (GifDrawable gifDrawable : gifDrawables) {
+            gifDrawable.setCallback(null);
+            gifDrawable.recycle();
+        }
+        gifDrawables.clear();
     }
 
     private class GifTarget extends SimpleTarget<GifDrawable> {

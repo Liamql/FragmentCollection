@@ -1,5 +1,7 @@
 package com.example.administrator.izhihucollection.MVP.model;
 
+import android.database.Cursor;
+import android.database.sqlite.SQLiteDatabase;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
@@ -40,29 +42,40 @@ public class HomeModel extends BaseModel implements HomeContract.Model {
     }
 
     @Override
-    public void getData(final Handler handler,String herf) {
+    public void getData(final Handler handler,final String herf) {
 
-        herf = herf.replace("/collection/","");
-        //Log.e("Home",herf);
-        Call<ResponseBody> call = mRepositoryManager
-                .obtainRetrofitService(CollectionService.class)
-                .getCollection(herf);
-        call.enqueue(new Callback<ResponseBody>() {
-            @Override
-            public void onResponse(Call<ResponseBody> call, Response<ResponseBody> response) {
-                try {
-                    String result = response.body().string();
-                    trans(result, handler);
-                } catch (IOException e) {
-                    e.printStackTrace();
+        String content = queryItem(herf);
+        if(content!=null)
+        {
+            Log.e("getCollection","DB");
+            trans(content, handler);
+        }
+        else {
+
+            String herfid = herf.replace("/collection/", "");
+            Log.e("getCollectionList","Network");
+            //Log.e("Home",herf);
+            Call<ResponseBody> call = mRepositoryManager
+                    .obtainRetrofitService(CollectionService.class)
+                    .getCollection(herfid);
+            call.enqueue(new Callback<ResponseBody>() {
+                @Override
+                public void onResponse(Call<ResponseBody> call, Response<ResponseBody> response) {
+                    try {
+                        String result = response.body().string();
+                        trans(result, handler);
+                        insert(herf,result);
+                    } catch (IOException e) {
+                        e.printStackTrace();
+                    }
                 }
-            }
 
-            @Override
-            public void onFailure(Call<ResponseBody> call, Throwable t) {
+                @Override
+                public void onFailure(Call<ResponseBody> call, Throwable t) {
 
-            }
-        });
+                }
+            });
+        }
 
         //return new ArticleListBean("title","summary","author","description","100");
     }
@@ -126,6 +139,34 @@ public class HomeModel extends BaseModel implements HomeContract.Model {
         msg2.what =2;
         msg2.obj = (Object) collist;
         handler.sendMessage(msg2);
+    }
+
+    public String queryItem(String url)
+    {
+        SQLiteDatabase db = mRepositoryManager.obtainDBReadService();
+        if(db.isOpen())
+        {
+            Cursor cursor= db.rawQuery("select * from collectionlist where url= ?;", new String []{url});
+            if(cursor!=null&&cursor.moveToFirst())
+            {
+                String res = cursor.getString(1);
+                db.close();
+                return res;
+            }
+            db.close();
+        }
+        return null;
+    }
+
+    public void insert(String url,String content)
+    {
+        SQLiteDatabase db = mRepositoryManager.obtainDBWriteService();
+        if(db.isOpen())
+        {
+            db.execSQL("insert into collectionlist(url, content) values(?, ?);",
+                    new Object[]{url,content});
+            db.close();
+        }
     }
 
 }
