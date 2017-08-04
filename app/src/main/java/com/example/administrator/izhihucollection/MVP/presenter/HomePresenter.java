@@ -43,9 +43,9 @@ public class HomePresenter extends BasePresenter<HomeContract.Model,HomeContract
         }
     };
 
-    public void showData()
+    public void showData(String herf)
     {
-        mModel.getData(handler);
+        mModel.getData(handler,herf);
     }
 
 }

@@ -8,14 +8,20 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 
+import com.example.administrator.izhihucollection.MVP.model.entity.CList;
+import com.example.administrator.izhihucollection.MVP.ui.adapter.CollistAdapter;
 import com.example.administrator.izhihucollection.MVP.ui.fragment.HomeFragment;
 import com.example.administrator.izhihucollection.R;
 import com.example.administrator.izhihucollection.app.base.LActivity;
 import com.example.administrator.izhihucollection.di.component.AppComponent;
 
-public class MainActivity extends LActivity {
+public class CollectionActivity extends LActivity {
 
     private int position;
+
+    public static String TAG = "list";
+
+    private String herf;
 
     @Override
     protected View initView() {
@@ -24,6 +30,8 @@ public class MainActivity extends LActivity {
 
     @Override
     protected void initData() {
+
+        herf = getIntent().getStringExtra(CollistAdapter.TAG);
         selectItem(0,"首页");
     }
 
@@ -39,6 +47,9 @@ public class MainActivity extends LActivity {
             case 0:
                 //首页
                 fragment = new HomeFragment();
+                Bundle bundle = new Bundle();
+                bundle.putString(TAG,herf);
+                fragment.setArguments(bundle);
                 break;
             default:
                 break;

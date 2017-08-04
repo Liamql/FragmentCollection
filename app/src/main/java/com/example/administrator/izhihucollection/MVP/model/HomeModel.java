@@ -40,11 +40,13 @@ public class HomeModel extends BaseModel implements HomeContract.Model {
     }
 
     @Override
-    public void getData(final Handler handler) {
+    public void getData(final Handler handler,String herf) {
 
+        herf = herf.replace("/collection/","");
+        //Log.e("Home",herf);
         Call<ResponseBody> call = mRepositoryManager
                 .obtainRetrofitService(CollectionService.class)
-                .getCollection("31241928");
+                .getCollection(herf);
         call.enqueue(new Callback<ResponseBody>() {
             @Override
             public void onResponse(Call<ResponseBody> call, Response<ResponseBody> response) {
@@ -114,13 +116,9 @@ public class HomeModel extends BaseModel implements HomeContract.Model {
             //Log.e("summary",summary);
 
             Elements content_wrapper = zm_item_answer_doc.select("textarea.content");
-            //content = getContent(content_wrapper.text());
             content = content_wrapper.text();
-            Log.e("content", content);
+            //Log.e("content", content);
 
-            Document d = Jsoup.parse(toHtml(content_wrapper.text()));
-            //Log.e("content", d.toString());
-            //content = d.toString();
 
             collist.add(new ArticleListBean(title,summary,author,author_des,likecount,content));
         }
@@ -128,23 +126,6 @@ public class HomeModel extends BaseModel implements HomeContract.Model {
         msg2.what =2;
         msg2.obj = (Object) collist;
         handler.sendMessage(msg2);
-
-
     }
-
-    String getContent(String pre)
-    {
-        String res = pre.replaceAll("<br>","\n");
-        return res;
-    }
-
-    String toHtml(String pre)
-    {
-        String res = "<div>";
-        res+=pre;
-        pre+="</div>";
-        return res;
-    }
-
 
 }

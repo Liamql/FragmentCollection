@@ -3,25 +3,18 @@ package com.example.administrator.izhihucollection.MVP.ui.fragment;
 import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
-import android.text.TextUtils;
-import android.util.Log;
-import android.widget.TextView;
 
 import com.example.administrator.izhihucollection.MVP.contract.HomeContract;
 import com.example.administrator.izhihucollection.MVP.model.entity.ArticleListBean;
 import com.example.administrator.izhihucollection.MVP.presenter.HomePresenter;
-import com.example.administrator.izhihucollection.MVP.ui.IView;
-import com.example.administrator.izhihucollection.MVP.ui.activity.MainActivity;
 import com.example.administrator.izhihucollection.MVP.ui.adapter.HomeListAdapter;
 import com.example.administrator.izhihucollection.R;
-import com.example.administrator.izhihucollection.app.base.BaseFragment;
 import com.example.administrator.izhihucollection.app.base.LFragment;
 import com.example.administrator.izhihucollection.di.component.AppComponent;
 import com.example.administrator.izhihucollection.di.component.DaggerHomeComponent;
 import com.example.administrator.izhihucollection.di.module.HomeModule;
 
 import java.util.ArrayList;
-import java.util.List;
 
 import butterknife.BindView;
 
@@ -34,6 +27,10 @@ public class HomeFragment extends LFragment<HomePresenter> implements HomeContra
     SwipeRefreshLayout swiperefresh;
     @BindView(R.id.l_recyclerview)
     RecyclerView recycleview;
+
+    private String herf;
+
+    public static String TAG = "list";
 
     private HomeListAdapter homeListAdapter;
     private ArrayList<ArticleListBean> listData = new ArrayList<>();
@@ -56,6 +53,8 @@ public class HomeFragment extends LFragment<HomePresenter> implements HomeContra
     @Override
     protected void initData() {
 
+        herf = getArguments().getString(TAG);
+
         homeListAdapter = new HomeListAdapter(mContext, listData);
         recycleview.setAdapter(homeListAdapter);
 
@@ -74,7 +73,7 @@ public class HomeFragment extends LFragment<HomePresenter> implements HomeContra
         layoutManager.setOrientation(LinearLayoutManager.VERTICAL);
         recycleview.setLayoutManager(layoutManager);
 
-        mPresenter.showData();
+        mPresenter.showData(herf);
 
     }
 
