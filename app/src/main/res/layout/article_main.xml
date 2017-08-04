@@ -52,11 +52,13 @@
         android:id="@+id/tv_content"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginLeft="15dip"
+        android:layout_marginLeft="15dp"
+        android:layout_marginRight="15dp"
+        android:layout_marginBottom="30dp"
         android:text="7897494"
-        android:textColor="@color/content_text_color"
+        android:textColor="@color/textBlack"
         android:lineSpacingExtra="5dp"
-        android:textSize="20sp"
+        android:textSize="18sp"
         android:scrollbars="vertical" />
 
 </LinearLayout>
