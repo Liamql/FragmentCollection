@@ -10,6 +10,6 @@ import retrofit2.http.Path;
  */
 public interface CollistService {
 
-    @GET("/people/{sid}/collections")
+    @GET("/people/{sid}/collections?page=1")
     Call<ResponseBody> getCollist(@Path("sid") String sid);
 }

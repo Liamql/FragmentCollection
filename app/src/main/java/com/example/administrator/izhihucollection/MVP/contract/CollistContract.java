@@ -22,5 +22,6 @@ public interface CollistContract {
     interface Model extends IModel
     {
         void getData(Handler handler);
+        void updateData(Handler handler);
     }
 }

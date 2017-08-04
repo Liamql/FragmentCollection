@@ -1,5 +1,6 @@
 package com.example.administrator.izhihucollection.MVP.model;
 
+import android.content.ContentValues;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.os.Handler;
@@ -48,34 +49,19 @@ public class CollModel extends BaseModel implements CollistContract.Model {
         if(content==null)
         {
             Log.e("getCollectionList","NetWork");
-            Call<ResponseBody> call = mRepositoryManager
-                    .obtainRetrofitService(CollistService.class)
-                    .getCollist(userID);
-
-            call.enqueue(new Callback<ResponseBody>() {
-                @Override
-                public void onResponse(Call<ResponseBody> call, Response<ResponseBody> response) {
-                    try {
-                        String result = response.body().string();
-                        insert(userID,result);
-                        trans(result, handler);
-                    } catch (IOException e) {
-                        e.printStackTrace();
-                    }
-                }
-
-                @Override
-                public void onFailure(Call<ResponseBody> call, Throwable t) {
-
-                }
-            });
+            getDataFromNetWork(userID,handler);
         }
         else
         {
             Log.e("getCollectionList","DB");
             trans(content, handler);
         }
+    }
 
+    @Override
+    public void updateData(Handler handler) {
+        Log.e("getCollectionList","UPDATE NetWork");
+        getDataFromNetWork(userID, handler);
     }
 
     public void trans(String html,Handler handler)
@@ -85,7 +71,7 @@ public class CollModel extends BaseModel implements CollistContract.Model {
         Document doc = Jsoup.parse(html);
         Element main_container = doc.getElementById("Profile-collections");
         Document main_doc = Jsoup.parse(main_container.toString());
-        //Log.e("Main",main_doc.toString());
+        Log.e("Main",main_doc.toString());
         Elements clearfix = main_doc.select(".List-item");  //选择器的形式
         for(Element zmItem : clearfix) {
 
@@ -127,5 +113,85 @@ public class CollModel extends BaseModel implements CollistContract.Model {
                     new Object[]{url,content});
             db.close();
         }
+    }
+
+    public void replace(String url,String content)
+    {
+        SQLiteDatabase db = mRepositoryManager.obtainDBWriteService();
+        if(db.isOpen())
+        {
+            db.execSQL("replace into collectionlist(url, content) values(?, ?);",
+                    new Object[]{url,content});
+            db.close();
+        }
+    }
+
+    public void update(String url,String content)
+    {
+        SQLiteDatabase db = mRepositoryManager.obtainDBWriteService();
+        if(db.isOpen()) {
+
+            ContentValues values = new ContentValues();
+            //在values中添加内容
+            values.put("content",content);
+            //修改条件
+            String whereClause = "url=?";
+            //修改添加参数
+            String[] whereArgs={url};
+            //修改
+            db.update("collectionlist", values, whereClause, whereArgs);
+            db.close();
+        }
+    }
+
+    public void getDataFromNetWork(String url,final Handler handler)
+    {
+        Call<ResponseBody> call = mRepositoryManager
+                .obtainRetrofitService(CollistService.class)
+                .getCollist(userID);
+
+        call.enqueue(new Callback<ResponseBody>() {
+            @Override
+            public void onResponse(Call<ResponseBody> call, Response<ResponseBody> response) {
+                try {
+                    String result = response.body().string();
+                    replace(userID, result);
+                    trans(result, handler);
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
+            }
+
+            @Override
+            public void onFailure(Call<ResponseBody> call, Throwable t) {
+
+            }
+        });
+    }
+
+    public void updateDataFromNetWork(String url,final Handler handler)
+    {
+        Call<ResponseBody> call = mRepositoryManager
+                .obtainRetrofitService(CollistService.class)
+                .getCollist(url);
+
+        call.enqueue(new Callback<ResponseBody>() {
+            @Override
+            public void onResponse(Call<ResponseBody> call, Response<ResponseBody> response) {
+                try {
+                    String result = response.body().string();
+                    Log.e("UPDATE",result);
+                    update(userID, result);
+                    trans(result, handler);
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
+            }
+
+            @Override
+            public void onFailure(Call<ResponseBody> call, Throwable t) {
+
+            }
+        });
     }
 }

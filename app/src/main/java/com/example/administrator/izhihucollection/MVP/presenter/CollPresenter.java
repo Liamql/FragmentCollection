@@ -2,6 +2,7 @@ package com.example.administrator.izhihucollection.MVP.presenter;
 
 import android.os.Handler;
 import android.os.Message;
+import android.util.Log;
 
 import com.example.administrator.izhihucollection.MVP.contract.CollistContract;
 import com.example.administrator.izhihucollection.MVP.model.entity.CList;
@@ -18,7 +19,7 @@ public class CollPresenter extends BasePresenter<CollistContract.Model,CollistCo
     @Inject
     public CollPresenter(CollistContract.Model model,CollistContract.View view)
     {
-        super(model,view);
+        super(model, view);
     }
 
     Handler handler = new Handler()
@@ -41,6 +42,10 @@ public class CollPresenter extends BasePresenter<CollistContract.Model,CollistCo
     public void showData()
     {
         mModel.getData(handler);
+    }
+
+    public void updateData(){
+        mModel.updateData(handler);
     }
 
 }

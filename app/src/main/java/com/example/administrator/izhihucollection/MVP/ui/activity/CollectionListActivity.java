@@ -51,6 +51,8 @@ public class CollectionListActivity extends LActivity<CollPresenter> implements 
             public void onRefresh() {
                 page = 1;
                 //homePresenter.loadList(page);
+                mPresenter.updateData();
+                swiperefresh.setRefreshing(false);
             }
         });
 
@@ -75,6 +77,7 @@ public class CollectionListActivity extends LActivity<CollPresenter> implements 
     @Override
     public void showData(ArrayList<CList> mylist) {
 
+        listdata.clear();
         for(CList coll : mylist)
         {
             listdata.add(coll);
