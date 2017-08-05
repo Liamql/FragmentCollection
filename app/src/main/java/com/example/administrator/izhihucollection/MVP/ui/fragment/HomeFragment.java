@@ -65,7 +65,7 @@ public class HomeFragment extends LFragment<HomePresenter> implements HomeContra
             @Override
             public void onRefresh() {
                 page = 1;
-                //homePresenter.loadList(page);
+                mPresenter.updateData(herf);
             }
         });
 
@@ -81,12 +81,14 @@ public class HomeFragment extends LFragment<HomePresenter> implements HomeContra
     public void showData(ArrayList<ArticleListBean> articleListBean) {
         //listData = articleListBean;
 
+        listData.clear();
         for(ArticleListBean a : articleListBean)
         {
             listData.add(a);
         }
-
+        swiperefresh.setRefreshing(false);
         homeListAdapter.notifyDataSetChanged();
+
     }
 
     @Override

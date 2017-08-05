@@ -104,17 +104,6 @@ public class CollModel extends BaseModel implements CollistContract.Model {
         return null;
     }
 
-    public void insert(String url,String content)
-    {
-        SQLiteDatabase db = mRepositoryManager.obtainDBWriteService();
-        if(db.isOpen())
-        {
-            db.execSQL("insert into collectionlist(url, content) values(?, ?);",
-                    new Object[]{url,content});
-            db.close();
-        }
-    }
-
     public void replace(String url,String content)
     {
         SQLiteDatabase db = mRepositoryManager.obtainDBWriteService();
@@ -126,50 +115,7 @@ public class CollModel extends BaseModel implements CollistContract.Model {
         }
     }
 
-    public void update(String url,String content)
-    {
-        SQLiteDatabase db = mRepositoryManager.obtainDBWriteService();
-        if(db.isOpen()) {
-
-            ContentValues values = new ContentValues();
-            //在values中添加内容
-            values.put("content",content);
-            //修改条件
-            String whereClause = "url=?";
-            //修改添加参数
-            String[] whereArgs={url};
-            //修改
-            db.update("collectionlist", values, whereClause, whereArgs);
-            db.close();
-        }
-    }
-
-    public void getDataFromNetWork(String url,final Handler handler)
-    {
-        Call<ResponseBody> call = mRepositoryManager
-                .obtainRetrofitService(CollistService.class)
-                .getCollist(userID);
-
-        call.enqueue(new Callback<ResponseBody>() {
-            @Override
-            public void onResponse(Call<ResponseBody> call, Response<ResponseBody> response) {
-                try {
-                    String result = response.body().string();
-                    replace(userID, result);
-                    trans(result, handler);
-                } catch (IOException e) {
-                    e.printStackTrace();
-                }
-            }
-
-            @Override
-            public void onFailure(Call<ResponseBody> call, Throwable t) {
-
-            }
-        });
-    }
-
-    public void updateDataFromNetWork(String url,final Handler handler)
+    public void getDataFromNetWork(final String url,final Handler handler)
     {
         Call<ResponseBody> call = mRepositoryManager
                 .obtainRetrofitService(CollistService.class)
@@ -180,8 +126,7 @@ public class CollModel extends BaseModel implements CollistContract.Model {
             public void onResponse(Call<ResponseBody> call, Response<ResponseBody> response) {
                 try {
                     String result = response.body().string();
-                    Log.e("UPDATE",result);
-                    update(userID, result);
+                    replace(url, result);
                     trans(result, handler);
                 } catch (IOException e) {
                     e.printStackTrace();
@@ -194,4 +139,6 @@ public class CollModel extends BaseModel implements CollistContract.Model {
             }
         });
     }
+
+
 }

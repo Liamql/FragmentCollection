@@ -48,4 +48,6 @@ public class HomePresenter extends BasePresenter<HomeContract.Model,HomeContract
         mModel.getData(handler,herf);
     }
 
+    public void updateData(String herf){mModel.updateData(handler,herf);}
+
 }

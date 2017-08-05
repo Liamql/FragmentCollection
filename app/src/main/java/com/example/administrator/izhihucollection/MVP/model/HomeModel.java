@@ -53,31 +53,42 @@ public class HomeModel extends BaseModel implements HomeContract.Model {
         else {
 
             String herfid = herf.replace("/collection/", "");
-            Log.e("getCollectionList","Network");
-            //Log.e("Home",herf);
-            Call<ResponseBody> call = mRepositoryManager
-                    .obtainRetrofitService(CollectionService.class)
-                    .getCollection(herfid);
-            call.enqueue(new Callback<ResponseBody>() {
-                @Override
-                public void onResponse(Call<ResponseBody> call, Response<ResponseBody> response) {
-                    try {
-                        String result = response.body().string();
-                        trans(result, handler);
-                        insert(herf,result);
-                    } catch (IOException e) {
-                        e.printStackTrace();
-                    }
-                }
-
-                @Override
-                public void onFailure(Call<ResponseBody> call, Throwable t) {
-
-                }
-            });
+            Log.e("getCollection","Network");
+            getDataFromNetWork(herfid,handler);
         }
 
         //return new ArticleListBean("title","summary","author","description","100");
+    }
+
+    @Override
+    public void updateData(Handler handler, String herf) {
+        Log.e("updateCollection","Network");
+        String herfid = herf.replace("/collection/", "");
+        getDataFromNetWork(herfid,handler);
+    }
+
+    void getDataFromNetWork(final String url,final Handler handler)
+    {
+        Call<ResponseBody> call = mRepositoryManager
+                .obtainRetrofitService(CollectionService.class)
+                .getCollection(url);
+        call.enqueue(new Callback<ResponseBody>() {
+            @Override
+            public void onResponse(Call<ResponseBody> call, Response<ResponseBody> response) {
+                try {
+                    String result = response.body().string();
+                    trans(result, handler);
+                    update(url, result);
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
+            }
+
+            @Override
+            public void onFailure(Call<ResponseBody> call, Throwable t) {
+
+            }
+        });
     }
 
     public void trans(String html,Handler handler)
@@ -158,12 +169,12 @@ public class HomeModel extends BaseModel implements HomeContract.Model {
         return null;
     }
 
-    public void insert(String url,String content)
+    public void update(String url,String content)
     {
         SQLiteDatabase db = mRepositoryManager.obtainDBWriteService();
         if(db.isOpen())
         {
-            db.execSQL("insert into collectionlist(url, content) values(?, ?);",
+            db.execSQL("replace into collectionlist(url, content) values(?, ?);",
                     new Object[]{url,content});
             db.close();
         }

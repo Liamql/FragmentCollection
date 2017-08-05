@@ -23,5 +23,6 @@ public interface HomeContract {
     interface Model extends IModel
     {
         void getData(Handler handler,String herf);
+        void updateData(Handler handler,String herf);
     }
 }

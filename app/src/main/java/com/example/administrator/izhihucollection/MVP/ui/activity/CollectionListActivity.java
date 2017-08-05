@@ -52,7 +52,6 @@ public class CollectionListActivity extends LActivity<CollPresenter> implements 
                 page = 1;
                 //homePresenter.loadList(page);
                 mPresenter.updateData();
-                swiperefresh.setRefreshing(false);
             }
         });
 
@@ -82,6 +81,7 @@ public class CollectionListActivity extends LActivity<CollPresenter> implements 
         {
             listdata.add(coll);
         }
+        swiperefresh.setRefreshing(false);
 
         collistAdapter.notifyDataSetChanged();
     }
