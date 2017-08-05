@@ -4,14 +4,14 @@
 
 ## 目前实现
 
-        * 获取个人收藏夹目录
-![](https://github.com/Liamql/IZhihuCollection/tree/master/demo/d1.png)
+获取个人收藏夹目录
+![](https://github.com/Liamql/IZhihuCollection/blob/master/demo/d1.png)
 
-        * 获取收藏夹的信息和收藏的文章
-![](https://github.com/Liamql/IZhihuCollection/tree/master/demo/d2.png)
+获取收藏夹的信息和收藏的文章
+![](https://github.com/Liamql/IZhihuCollection/blob/master/demo/d2.png)
 
-        * 获取文章内容
-![](https://github.com/Liamql/IZhihuCollection/tree/master/demo/d3.png)
+获取文章内容
+![](https://github.com/Liamql/IZhihuCollection/blob/master/demo/d3.png)
   
 
 ## 计划实现功能
