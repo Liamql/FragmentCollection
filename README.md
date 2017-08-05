@@ -28,3 +28,10 @@
 使用了我个人的一个MVP框架进行开发：[L-MVP](https://github.com/Liamql/L-MVP)  
 
 开源库： retrofit2,Dagger2,Okhttp3,Glide,butterKnife,Gson
+
+## TIPS
+
+        目前只是个人使用，所以默认获取自己的知乎收藏夹，可以通过修改
+        CollistActivity的userid改变获取的用户
+        个人知乎收藏夹为:www.zhihu.com/people/xxx/collections
+        把userid改为xxx即可
