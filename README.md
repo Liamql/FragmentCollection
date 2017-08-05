@@ -20,3 +20,4 @@
 ## 使用框架以及开源库
 
 使用了我个人的一个MVP框架进行开发：[L-MVP](https://github.com/Liamql/L-MVP)
+开源库： retrofit2,Dagger2,Okhttp3,Glide,butterKnife,Gson
