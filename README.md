@@ -15,6 +15,10 @@
 获取文章内容
   
   ![](https://github.com/Liamql/IZhihuCollection/blob/master/demo/d3.png)
+
+
+下拉刷新即可获取最新的数据（需要联网）
+除此之外全程不需要网络连接，可离线使用
   
 
 ## 计划实现功能

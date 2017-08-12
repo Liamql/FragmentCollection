@@ -2,6 +2,7 @@ package com.example.administrator.izhihucollection.MVP.ui.activity;
 
 import android.content.Intent;
 import android.text.method.ScrollingMovementMethod;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.TextView;
@@ -43,6 +44,7 @@ public class ArticleActivity extends LActivity {
         tv_likecount.setText(articleListBean.getLikesCount());
         tv_author.setText(articleListBean.getAuthor());
         tv_intro.setText(articleListBean.getAuthor_des());
+        Log.e("THIS",articleListBean.getContent());
         tv_content.setRichText(articleListBean.getContent());
 
     }
