@@ -6,15 +6,15 @@
 
 获取个人收藏夹目录
   
-  ![](https://github.com/Liamql/IZhihuCollection/blob/master/demo/d1.png)
+  ![](https://github.com/Liamql/IZhihuCollection/blob/master/demo/d1.png =240x380)
 
 获取收藏夹的信息和收藏的文章
   
-  ![](https://github.com/Liamql/IZhihuCollection/blob/master/demo/d2.png)
+  ![](https://github.com/Liamql/IZhihuCollection/blob/master/demo/d2.png =240x380)
 
 获取文章内容
   
-  ![](https://github.com/Liamql/IZhihuCollection/blob/master/demo/d3.png)
+  ![](https://github.com/Liamql/IZhihuCollection/blob/master/demo/d3.png =240x380)
 
 
 下拉刷新即可获取最新的数据（需要联网）
