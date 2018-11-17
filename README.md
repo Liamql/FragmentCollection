@@ -1,4 +1,4 @@
-# IZhihuCollection
+# QuoraCollection
 create your own collections from quora, supporting offline searching and real-time fetching.
 获取个人知乎收藏夹，本地离线保存和查看文章内容
 
