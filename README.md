@@ -1,11 +1,11 @@
-# QuoraCollection
-create your own collections from quora, supporting offline searching and real-time fetching.
+# 知乎Collection
+create your own collections from zhihu/quora, supporting offline searching and real-time fetching.
 获取个人知乎收藏夹，本地离线保存和查看文章内容
 
 
 ## Accomplished 目前实现
 
-get collections' menu from quora
+get collections' menu from zhihu/quora
 获取个人收藏夹目录
   
   ![](https://github.com/Liamql/IZhihuCollection/blob/master/demo/d1.png =240x380)
